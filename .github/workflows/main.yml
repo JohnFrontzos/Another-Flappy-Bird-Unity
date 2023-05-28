@@ -13,11 +13,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+          lfs: true
     - name: Restore from cache 
       uses: actions/cache@v2
       with:
-        path: Another-Flappy-Bird-Unity/Library
-        key: Library-AnotherFlappyBirdUnity-STANDALONE_WINDOWS
+        path: Library
+        key: Library-${{ hashFiles('Assets/**', 'Packages/**', 'ProjectSettings/**') }}
+        restore-keys: |
+          Library-
     - name: Build project
       uses: game-ci/unity-builder@v2
       with:
