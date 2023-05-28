@@ -1,0 +1,33 @@
+name: Build game
+on:
+  push:
+    branches: [main]
+env:
+    UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+    UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+    UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+jobs:
+  build:
+    name: Build and Store artifacts
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Restore from cache 
+      uses: actions/cache@v2
+      with:
+        path: Another-Flappy-Bird-Unity/Library
+        key: Library-AnotherFlappyBirdUnity-STANDALONE_WINDOWS
+        restore-keys: |
+            Library-MyProjectName-
+            Library-
+    - name: Build project
+      uses: game-ci/unity-builder@v2
+      with:
+          targetPlatform: StandaloneWindows
+    - uses: actions/upload-artifact@v2
+      with:
+          name: Build
+          path: build
+
+  
