@@ -18,9 +18,6 @@ jobs:
       with:
         path: Another-Flappy-Bird-Unity/Library
         key: Library-AnotherFlappyBirdUnity-STANDALONE_WINDOWS
-        restore-keys: |
-            Library-MyProjectName-
-            Library-
     - name: Build project
       uses: game-ci/unity-builder@v2
       with:
